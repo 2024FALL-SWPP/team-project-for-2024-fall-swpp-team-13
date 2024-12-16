@@ -3,8 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using System.Reflection;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -13,31 +11,35 @@ public class SettingsManager : MonoBehaviour
     public Slider brightnessSlider;
     public Slider bgmVolumeSlider;
     public Slider sfxVolumeSlider;
-    public TMP_Dropdown resolutionDropdown;
-    public TMP_Dropdown fullscreenDropdown;
+    public Dropdown resolutionDropdown;
+    public Dropdown fullscreenDropdown;
 
-    public GameObject settingsPanel;
-    public GameObject quitPanel; 
-    public TextMeshProUGUI quitAskText;
-    public Button quitYesButton;
-    public Button quitNoButton;
-
-    public Image brightnessOverlayPrefab; 
-    private Image brightnessOverlay;  
+    public GameObject brightnessValueText;
+    public GameObject bgmVolumeValueText;
+    public GameObject sfxVolumeValueText;
+    public GameObject resolutionValueText;
+    public GameObject fullscreenValueText;
+    
+    public GameObject originalPlane;
+    public GameObject quitAskPlane;
+    public GameObject quitAskText;
+    public GameObject quitYesButton;
+    public GameObject quitNoButton;
 
     public bool isSaved;
+    public bool isQuitAsk;
+    public int selectedQuitButton = 0;
 
     public Resolution[] resolutions;
     private Resolution[] predefinedResolutions = new Resolution[]
     {
         new Resolution { width = 1920, height = 1080 },
-        new Resolution { width = 1600, height = 900 },
+        new Resolution { width = 1600, height = 900},
         new Resolution { width = 1280, height = 720 }
     };
 
     void Awake()
     {
-        AutoAssignComponents();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -48,68 +50,15 @@ public class SettingsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void AutoAssignComponents()
-    {
-        FieldInfo[] fields = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-        foreach (FieldInfo field in fields)
-        {
-            if (field.Name == "brightnessOverlay" || field.Name == "brightnessOverlayPrefab")
-            {
-                continue;
-            }
-            if (typeof(UnityEngine.Object).IsAssignableFrom(field.FieldType))
-            {
-                GameObject obj = GameObject.Find(field.Name);
-
-                if (obj != null)
-                {
-                    if (field.FieldType == typeof(GameObject))
-                    {
-                        field.SetValue(this, obj);
-                        Debug.Log($"Assigned {field.Name} to GameObject {obj.name}");
-                    }
-                    else
-                    {
-                        Component component = obj.GetComponent(field.FieldType);
-                        if (component != null)
-                        {
-                            field.SetValue(this, component);
-                            Debug.Log($"Assigned {field.Name} to {component.GetType().Name} from GameObject {obj.name}");
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"Object {obj.name} does not have a component of type {field.FieldType.Name}");
-                        }
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning($"No GameObject found with name {field.Name}");
-                }
-            }
-        }
-    }
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void Start()
+    public void Start()
     {
         Resolution[] supportedResolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
         List<Resolution> availiableResolutions = predefinedResolutions
-            .Where(predef => supportedResolutions.Any(supported =>
-                predef.width == supported.width && predef.height == supported.height))
-            .ToList();
+        .Where(predef => supportedResolutions.Any(supported => 
+            predef.width == supported.width && predef.height == supported.height))
+        .ToList();
 
         resolutions = availiableResolutions.ToArray();
 
@@ -132,87 +81,32 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
+        quitAskPlane.SetActive(false);
+        quitAskText.SetActive(false);
+        quitYesButton.SetActive(false);
+        quitNoButton.SetActive(false);
 
-        fullscreenDropdown.value = Screen.fullScreen ? 1 : 0;
-        fullscreenDropdown.RefreshShownValue();
-
-        fullscreenDropdown.onValueChanged.AddListener(SetFullscreen);
-
-        settingsPanel.SetActive(false);
-        quitPanel.SetActive(false);
-
+        isQuitAsk = false;
         isSaved = true;
 
         LoadSettings();
-        AttachOverlayToCanvas();
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void SetBrightness(int brightness)
     {
-        if (scene.buildIndex == 0) 
-        {
-            return;
-        }
-        AttachOverlayToCanvas();
-        AutoAssignComponents();
-        
-        if(settingsPanel != null && settingsPanel.activeSelf)
-        {
-            settingsPanel.SetActive(false);
-            LoadSettings();
-        }
-    }
-
-    private void AttachOverlayToCanvas()
-    {
-        if (brightnessOverlay == null && brightnessOverlayPrefab != null)
-        {
-            Canvas rootCanvas = GetRootCanvas();
-
-            brightnessOverlay = Instantiate(brightnessOverlayPrefab, rootCanvas.transform, false);
-            brightnessOverlay.transform.SetSiblingIndex(rootCanvas.transform.childCount - 1); 
-
-            float brightness = PlayerPrefs.GetFloat("Brightness", 1f);
-            float alpha = 1f - brightness;
-            brightnessOverlay.color = new Color(0, 0, 0, alpha);
-            Debug.Log($"BrightnessOverlay added: Alpha={alpha}");
-        }
-    }
-
-    public void SetBrightness(float brightness)
-    {
-        if (brightnessOverlay != null)
-        {
-            float alpha = 1f - brightness; 
-            brightnessOverlay.color = new Color(0, 0, 0, alpha);
-
-            PlayerPrefs.SetFloat("Brightness", brightness);
-            PlayerPrefs.Save();
-
-            Debug.Log($"Brightness set to {brightness}, Alpha set to {alpha}");
-        }
-
+        RenderSettings.ambientLight = new Color(brightness, brightness, brightness / 100, 1);
         isSaved = false;
     }
 
-    public void SetBGMVolume(float volume)
+    public void SetBGMVolume(int volume)
     {
-        if (volume < 0 || volume > 100)
-        {
-            return;
-        }
-        AudioManager.Instance.SetBGMVolume(volume);
+        AudioManager.Instance.SetBGMVolume(volume / 100);
         isSaved = false;
     }
 
-    public void SetSFXVolume(float volume)
+    public void SetSFXVolume(int volume)
     {
-        if (volume < 0 || volume > 100)
-        {
-            return;
-        }
-        AudioManager.Instance.SetSFXVolume(volume);
+        AudioManager.Instance.SetSFXVolume(volume / 100);
         isSaved = false;
     }
 
@@ -220,6 +114,7 @@ public class SettingsManager : MonoBehaviour
     {
         if (resolutionIndex < 0 || resolutionIndex >= resolutions.Length)
         {
+            Debug.LogWarning("Invalid resolution index");
             return;
         }
         Resolution resolution = resolutions[resolutionIndex];
@@ -227,43 +122,27 @@ public class SettingsManager : MonoBehaviour
         isSaved = false;
     }
 
-    public void SetFullscreen(int fullscreenIndex)
+    public void SetFullscreen(int isFullscreen)
     {
-        bool isFullscreen = fullscreenIndex == 1;
-        Screen.fullScreen = isFullscreen;
+        Screen.fullScreen = isFullscreen == 1;
         isSaved = false;
     }
 
     public void Back()
     {
-        if(quitPanel != null){
-            if (quitPanel.activeSelf)
-            {
-                quitPanel.SetActive(false);
-            }
-            else if (settingsPanel.activeSelf)
-            {
-                quitPanel.SetActive(true);
-            }
+        if(isSaved){
+            // last scene 없을 때 오류 출력
+            SceneManager.UnloadSceneAsync("SettingsScene");
+            //SceneManager.LoadScene(PlayerPrefs.GetString("LastScene"));
         }
-    }
-
-    public void QuitYes()
-    {
-        SaveSettings();
-        settingsPanel.SetActive(false);
-        quitPanel.SetActive(false);
-        Time.timeScale = 1;
-    }
-
-    public void QuitNo()
-    {
-        quitPanel.SetActive(false);
+        else{
+            QuitAsk();
+        }
     }
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetFloat("Brightness", 1f - brightnessOverlay.color.a);
+        PlayerPrefs.SetFloat("Brightness", RenderSettings.ambientLight.r);
         PlayerPrefs.SetFloat("BGMVolume", AudioManager.Instance.bgmVolume);
         PlayerPrefs.SetFloat("SFXVolume", AudioManager.Instance.sfxVolume);
         PlayerPrefs.SetInt("Resolution", resolutionDropdown.value);
@@ -273,43 +152,22 @@ public class SettingsManager : MonoBehaviour
 
     public void LoadSettings()
     {
-        if (!PlayerPrefs.HasKey("Brightness") || !PlayerPrefs.HasKey("BGMVolume") || !PlayerPrefs.HasKey("SFXVolume") || !PlayerPrefs.HasKey("Resolution") || !PlayerPrefs.HasKey("Fullscreen"))
-        {
+        if(!PlayerPrefs.HasKey("Brightness") || !PlayerPrefs.HasKey("BGMVolume") || !PlayerPrefs.HasKey("SFXVolume") || !PlayerPrefs.HasKey("Resolution") || !PlayerPrefs.HasKey("Fullscreen")){
             PlayerPrefs.SetFloat("Brightness", 1f);
             PlayerPrefs.SetFloat("BGMVolume", 0.5f);
             PlayerPrefs.SetFloat("SFXVolume", 0.5f);
             PlayerPrefs.SetInt("Resolution", 0);
             PlayerPrefs.SetInt("Fullscreen", 1);
         }
-        float brightness = PlayerPrefs.GetFloat("Brightness", 1f);
-        Debug.Log(brightness);
-        PlayerPrefs.SetFloat("Brightness", brightness);
-        brightnessSlider.value = brightness;
-        brightnessSlider.onValueChanged.RemoveAllListeners();
-        brightnessSlider.value = brightness;
-        brightnessSlider.onValueChanged.AddListener(SetBrightness);
 
-        if (brightnessOverlay != null)
-        {
-            float alpha = 1f - brightness;
-            brightnessOverlay.color = new Color(0, 0, 0, alpha);
-        }
+        RenderSettings.ambientLight = new Color(PlayerPrefs.GetFloat("Brightness"), PlayerPrefs.GetFloat("Brightness"), PlayerPrefs.GetFloat("Brightness"), 1);
+        brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
 
-        float bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 0.5f);
-        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
+        AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMVolume"));
+        bgmVolumeSlider.value = PlayerPrefs.GetFloat("BGMVolume");
 
-        bgmVolumeSlider.onValueChanged.RemoveAllListeners();
-        sfxVolumeSlider.onValueChanged.RemoveAllListeners();
-
-        AudioManager.Instance.SetBGMVolume(bgmVolume);
-        bgmVolumeSlider.value = bgmVolume;
-
-        bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-
-        AudioManager.Instance.SetSFXVolume(sfxVolume);
-        sfxVolumeSlider.value = sfxVolume;
-
-        sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        AudioManager.Instance.SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume"));
+        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
 
         resolutionDropdown.value = PlayerPrefs.GetInt("Resolution");
         SetResolution(PlayerPrefs.GetInt("Resolution"));
@@ -317,34 +175,78 @@ public class SettingsManager : MonoBehaviour
         fullscreenDropdown.value = PlayerPrefs.GetInt("Fullscreen");
         SetFullscreen(fullscreenDropdown.value);
     }
-    private Canvas GetRootCanvas()
+
+    public void QuitAsk()
     {
-        Canvas[] allCanvases = FindObjectsOfType<Canvas>();
-
-        foreach (Canvas canvas in allCanvases)
-        {
-            if (canvas.transform.parent == null) 
-            {
-                return canvas;
-            }
-        }
-
-        GameObject newCanvas = new GameObject("RootCanvas");
-        Canvas rootCanvas = newCanvas.AddComponent<Canvas>();
-        rootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-        newCanvas.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        newCanvas.AddComponent<GraphicRaycaster>();
-
-        return rootCanvas;
+        Renderer planeRenderer = originalPlane.GetComponent<Renderer>();
+        planeRenderer.material.color = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+        isQuitAsk = true;
+        quitAskPlane.SetActive(true);
+        quitAskText.SetActive(true);
+        quitYesButton.SetActive(true);
+        quitNoButton.SetActive(true);
+        selectedQuitButton = 0;
+        showQuitSelect();
     }
 
+    public void QuitYes()
+    {
+        LoadSettings();
+        SceneManager.LoadScene(PlayerPrefs.GetString("LastScene"));
+    }
+
+    public void QuitNo()
+    {
+        Renderer planeRenderer = originalPlane.GetComponent<Renderer>();
+        planeRenderer.material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        isQuitAsk = false;
+        quitAskPlane.SetActive(false);
+        quitAskText.SetActive(false);
+        quitYesButton.SetActive(false);
+        quitNoButton.SetActive(false);
+        selectedQuitButton = 0;
+    }
+
+    public void showQuitSelect()
+    {
+        Outline quitYesOutline = quitYesButton.gameObject.GetComponent<Outline>();
+        Outline quitNoOutline = quitNoButton.gameObject.GetComponent<Outline>();
+        
+        if(selectedQuitButton == 0){
+            quitYesOutline.effectColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+            quitNoOutline.effectColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+        }
+        if(selectedQuitButton == 1){
+            quitYesOutline.effectColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+            quitNoOutline.effectColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        }
+    }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isQuitAsk)
         {
-            Back();
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                selectedQuitButton = 1 - selectedQuitButton;
+                showQuitSelect();
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                selectedQuitButton = 1 - selectedQuitButton;
+                showQuitSelect();
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (selectedQuitButton == 0)
+                {
+                    QuitYes();
+                }
+                if (selectedQuitButton == 1)
+                {
+                    QuitNo();
+                }
+            }
         }
     }
 }
