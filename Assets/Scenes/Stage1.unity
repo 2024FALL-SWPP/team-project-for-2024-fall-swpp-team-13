@@ -1530,6 +1530,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 247899389}
     - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
+    - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
       propertyPath: isHole1Door
       value: 1
       objectReference: {fileID: 0}
@@ -7713,6 +7717,10 @@ PrefabInstance:
       propertyPath: hole2
       value: 
       objectReference: {fileID: 758987922}
+    - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
     - target: {fileID: 509833985872043191, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
       propertyPath: m_Name
       value: HoleManager
@@ -8173,6 +8181,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigFenceBroken (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4003689086508957181, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
+      propertyPath: m_TagString
+      value: BrokenFence
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494109933528527389, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
     - target: {fileID: 7550638153184653812, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.016
@@ -34389,6 +34405,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 490586843}
     - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
+    - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
       propertyPath: isHole1Door
       value: 1
       objectReference: {fileID: 0}
@@ -39436,10 +39456,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigFenceBroken (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4003689086508957181, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
+      propertyPath: m_TagString
+      value: BrokenFence
+      objectReference: {fileID: 0}
     - target: {fileID: 4542316029267229869, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.16
       objectReference: {fileID: 0}
+    - target: {fileID: 7494109933528527389, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
     - target: {fileID: 7550638153184653812, guid: 1c6caa13e84724d0e97a51848cebb554, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.11
@@ -42662,6 +42690,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52dc7daa5c07f0c43997cfe8072e3792, type: 3}
+--- !u!1 &1474403259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3618782452728500420, guid: 52dc7daa5c07f0c43997cfe8072e3792, type: 3}
+  m_PrefabInstance: {fileID: 1474403258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1474403260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474403259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8cce90de08482b953e2229682deeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HPParticle: {fileID: 100000, guid: 57ff52a6b9d134c9689be872547ab590, type: 3}
+  DefaultForce: {x: 0, y: 1, z: 0}
+  DefaultForceScatter: 0.5
 --- !u!1001 &1474672597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53834,6 +53882,10 @@ PrefabInstance:
       propertyPath: hole2
       value: 
       objectReference: {fileID: 1671522361}
+    - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
+      propertyPath: dustPrefab
+      value: 
+      objectReference: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
     - target: {fileID: 509833985872043190, guid: a219df4f1eb449e40954dfc52ea782c4, type: 3}
       propertyPath: isHole1Door
       value: 1
