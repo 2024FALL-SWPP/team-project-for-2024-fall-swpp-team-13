@@ -70,7 +70,6 @@ MonoBehaviour:
   returnDistance: 8
   isAttacking: 0
   currentSpeed: 0
-  deathParticlePrefab: {fileID: 3302442364004722511, guid: 10434d6bf3af98b46a88ab696f543ee3, type: 3}
   hasReached: 0
 --- !u!54 &2803333794917593607
 Rigidbody:
