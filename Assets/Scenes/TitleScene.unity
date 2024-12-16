@@ -656,7 +656,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
+      - m_Target: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: SetFullscreen
         m_Mode: 3
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
+      - m_Target: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 3
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
+      - m_Target: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: SetBrightness
         m_Mode: 4
@@ -3345,134 +3345,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &959877555
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 959877557}
-  - component: {fileID: 959877556}
-  m_Layer: 0
-  m_Name: BGMSource
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &959877556
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959877555}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a0477b67229ca4546a65198b288fb9cd, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &959877557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959877555}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1971030188}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -4890,7 +4762,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
+      - m_Target: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: SetSFXVolume
         m_Mode: 4
@@ -5319,17 +5191,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afb107fedb6704e51947fef2409e374b, type: 3}
---- !u!114 &1402458769 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
-  m_PrefabInstance: {fileID: 57721821208801796}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ede2e702e4e54dcdbec14b7f270dd42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1416630492
 GameObject:
   m_ObjectHideFlags: 0
@@ -6328,6 +6189,7 @@ GameObject:
   - component: {fileID: 1678181692}
   - component: {fileID: 1678181691}
   - component: {fileID: 1678181690}
+  - component: {fileID: 1678181694}
   m_Layer: 5
   m_Name: quitNoButton
   m_TagString: Untagged
@@ -6415,8 +6277,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
-        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+      - m_Target: {fileID: 1678181694}
+        m_TargetAssemblyTypeName: QuitButtonController, Assembly-CSharp
         m_MethodName: QuitNo
         m_Mode: 1
         m_Arguments:
@@ -6465,6 +6327,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678181688}
   m_CullTransparentMesh: 1
+--- !u!114 &1678181694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678181688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabbec730d90848459ed448820d2cdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1712703094
 GameObject:
   m_ObjectHideFlags: 0
@@ -7354,6 +7228,7 @@ GameObject:
   - component: {fileID: 1855749506}
   - component: {fileID: 1855749505}
   - component: {fileID: 1855749504}
+  - component: {fileID: 1855749508}
   m_Layer: 5
   m_Name: quitYesButton
   m_TagString: Untagged
@@ -7441,8 +7316,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
-        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+      - m_Target: {fileID: 1855749508}
+        m_TargetAssemblyTypeName: QuitButtonController, Assembly-CSharp
         m_MethodName: QuitYes
         m_Mode: 1
         m_Arguments:
@@ -7491,6 +7366,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855749502}
   m_CullTransparentMesh: 1
+--- !u!114 &1855749508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855749502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabbec730d90848459ed448820d2cdb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1879031767
 GameObject:
   m_ObjectHideFlags: 0
@@ -8004,7 +7891,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1402458769}
+      - m_Target: {fileID: 57721820444860565, guid: c344c0d32bf3cf7429a929dcf69ceb40, type: 3}
         m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
         m_MethodName: SetBGMVolume
         m_Mode: 4
@@ -8465,10 +8352,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4761444386955238629, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4761444387448540984, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
       propertyPath: bgmSource
       value: 
-      objectReference: {fileID: 959877556}
+      objectReference: {fileID: 0}
     - target: {fileID: 4761444387448540985, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -8517,13 +8408,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5051381116635163763, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a0477b67229ca4546a65198b288fb9cd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
---- !u!4 &1971030188 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4761444387448540985, guid: ebe194b700eff104a97b8e1a1b23dcae, type: 3}
-  m_PrefabInstance: {fileID: 1971030187}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2013623649
 GameObject:
   m_ObjectHideFlags: 0
